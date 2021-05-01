@@ -1,44 +1,44 @@
 function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
-    //	 ZEITEINHEITEN IN SEKUNDEN,
-    //   j0:    3200*365.2421875 Tage in Sekunden ,
-    //	 j1:	400*356,2425 Tage in Sekunden,
-    //	 j2:	4*365,25 Tage in Sekunden,
-    //	 j3:	365 Tage in Sekunden,
-    //	 mon:	Dauer der Vormonate in Sekunden,
-    //	 t:	ein Tag in Sekunden,
-    //	 s:	eine Stunde in Sekunden,
-    //	 m:	eine Minute in Sekunden,
+    //	 ZEITEINHEITEN IN SEKUNDEN
+    //   j0:    3200*365.2421875 Tage in Sekunden
+    //	 j1:	400*356,2425 Tage in Sekunden
+    //	 j2:	4*365,25 Tage in Sekunden
+    //	 j3:	365 Tage in Sekunden
+    //	 mon:	Dauer der Vormonate in Sekunden
+    //	 t:	ein Tag in Sekunden
+    //	 s:	eine Stunde in Sekunden
+    //	 m:	eine Minute in Sekunden
 
-    //	 EINGABEWERTE,
-    //	 typ:	Schaltete um zwischen ATZ und NGZ,
-    //	 ngz:	Eingabe Jahr,
-    //	 atz:	Eingabe Jahr,
-    //	 mona:	Eingabe Monat,
-    //	 tag:	Eingabe Tag,
-    //	 std:	Eingabe Stunde,
-    //	 min:	Eingabe Minute,
-    //	 sec:	Eingabe Sekunde,
+    //	 EINGABEWERTE
+    //	 typ:	Schaltete um zwischen ATZ und NGZ
+    //	 ngz:	Eingabe Jahr
+    //	 atz:	Eingabe Jahr
+    //	 mona:	Eingabe Monat
+    //	 tag:	Eingabe Tag
+    //	 std:	Eingabe Stunde
+    //	 min:	Eingabe Minute
+    //	 sec:	Eingabe Sekunde
 
-    //	 ZWISCHENWERTE UND TESTWERTE,
-    //   s0:    Anzahl der 3200 Jahre-Schaltzyklen seit 1600 ATZ,
-    //	 s1:    Anzahl der 400 Jahre Schaltzyklen seit 1 ATZ,
-    //	 s2:    Anzahl der 4 Jahre Schaltzyklen seit 1 ATZ,
-    //	 s3:    Anzahl der Jahre im aktuellen Schaltzyklus ATZ,
-    //	 feb:	fuegt in Schaltjahren den 29.02. ein,
-    //	 zeit:	Anzahl der Sekunden seit 1. Januar 1 ATZ,
-    //	 rueck: Regelt Neustart oder Abbruch des Programms,
-    //        time:  Sekunden bis 1 dha-Tamar,
-    //        dif:   Differenz 1 ATZ bis 1 dha-Tamar in Sekunden,
-    //        v0:    5450 Periode dha-tamar,
-    //        v1:    50 Jahre-Periode dha-tamar,
+    //	 ZWISCHENWERTE UND TESTWERTE
+    //   s0:    Anzahl der 3200 Jahre-Schaltzyklen seit 1600 ATZ
+    //	 s1:    Anzahl der 400 Jahre Schaltzyklen seit 1 ATZ
+    //	 s2:    Anzahl der 4 Jahre Schaltzyklen seit 1 ATZ
+    //	 s3:    Anzahl der Jahre im aktuellen Schaltzyklus ATZ
+    //	 feb:	fuegt in Schaltjahren den 29.02. ein
+    //	 zeit:	Anzahl der Sekunden seit 1. Januar 1 ATZ
+    //	 rueck: Regelt Neustart oder Abbruch des Programms
+    //        time:  Sekunden bis 1 dha-Tamar
+    //        dif:   Differenz 1 ATZ bis 1 dha-Tamar in Sekunden
+    //        v0:    5450 Periode dha-tamar
+    //        v1:    50 Jahre-Periode dha-tamar
 
     //   AUSGABEWERTE,
 
-    /*  double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2,
-                    double precision  s3,feb,rest,zeit,time,dif,nega,mem,
-                    double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty,
-                    integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar,
-                */
+    /*  double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
+                      double precision  s3,feb,rest,zeit,time,dif,nega,mem
+                      double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
+                      integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
+                  */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -54,21 +54,21 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     const c3 = 5.0e1;
     const dif = 1.779780211e12;
 
-    // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.;
+    // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
 
     /*
-                  Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
-                  V 0.9 beta (28.12.2002 by Christian Dalhoff)
-                  Achtung Fehler in Schaltjahren im negativen dha-Bereich
-                  Konvertierung nach JavaScript 2021 by bertholdm
-              */
+                    Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
+                    V 0.9 beta (28.12.2002 by Christian Dalhoff)
+                    Achtung Fehler in Schaltjahren im negativen dha-Bereich
+                    Konvertierung nach JavaScript 2021 by bertholdm
+                */
 
     //  'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)'
     if (typ != Math.floor(typ) || typ >= 2 || typ < 0) {
         return "Kein zulaessiges Datumsformat.";
     }
-    // 'Geben sie das Jahr ATZ ein:';
-    // 'Geben sie das Jahr NGZ ein:';
+    // 'Geben sie das Jahr ATZ ein:'
+    // 'Geben sie das Jahr NGZ ein:'
     if (jahr == 0) {
         return "Ein Jahr 0 ATZ/NGZ existiert nicht.";
     }
@@ -295,7 +295,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     }
     // Fuehrt o.g. Operationen auf Jahreszahlen ATZ kleiner 1 aus.
     if (atz < 1) {
-        //Prueft ob der 29.Februar zulaessig ist:;
+        //Prueft ob der 29.Februar zulaessig ist:
         if (mona == 2 && tag == 29 && atz > -46) {
             switch (atz) {
                 case -42:
@@ -387,7 +387,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             (j3 - (mon + (tag - 1) * t + std * s + min * m + sec))
         );
     }
-    // Kleine Vorsichtsmassnahme;
+    // Kleine Vorsichtsmassnahme
     co1 = 0;
     co2 = 0;
     co3 = 0;
