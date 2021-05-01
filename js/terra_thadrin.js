@@ -43,11 +43,11 @@ function terra_thadrin(typ, jahr, mona, tag, std, min, sec) {
     //        Ofrin:    Thadrin-Sekunde
 
     /*
-                            double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
-                            double precision zeit, time, dif, thadrin, tha, burdrin, bur, sefrin, sef
-                            double precision adrin, ad, ofrin, of
-                            integer atz, ngz, mona, monat, tag, day, std, min, rueck, typ
-                        */
+                              double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
+                              double precision zeit, time, dif, thadrin, tha, burdrin, bur, sefrin, sef
+                              double precision adrin, ad, ofrin, of
+                              integer atz, ngz, mona, monat, tag, day, std, min, rueck, typ
+                          */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -65,10 +65,10 @@ function terra_thadrin(typ, jahr, mona, tag, std, min, sec) {
 
     //Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
     /*
-                      Programm zur Umrechnung von ATZ/NGZ-Daten nach Tahdrin'
-                      V 1.0 (06.10.2002 by Christian Dalhoff)'
-                      Konvertierung nach JavaScript 2021 by bertholdm
-                                                      */
+                        Programm zur Umrechnung von ATZ/NGZ-Daten nach Tahdrin'
+                        V 1.0 (06.10.2002 by Christian Dalhoff)'
+                        Konvertierung nach JavaScript 2021 by bertholdm
+                                                        */
 
     // 'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)'
     if (typ != Math.floor(typ) || typ >= 2 || typ < 0) {
@@ -191,7 +191,7 @@ function terra_thadrin(typ, jahr, mona, tag, std, min, sec) {
             break;
     }
 
-    // Kleine Vorsichtsmassnahme;
+    // Kleine Vorsichtsmassnahme
     s0 = 0;
     s1 = 0;
     s2 = 0;
@@ -199,7 +199,7 @@ function terra_thadrin(typ, jahr, mona, tag, std, min, sec) {
     rest = 0;
     feb = 0;
 
-    // Berechnungen fuer positive Jahreszahlen ATZ.;
+    // Berechnungen fuer positive Jahreszahlen ATZ.
     if (atz > 0) {
         s0 = Math.floor((atz - 1601) / 3200);
         s1 = Math.floor((atz - s0 * 3200 - 1) / 400);
@@ -396,7 +396,7 @@ function terra_thadrin(typ, jahr, mona, tag, std, min, sec) {
         (j3 - (mon + (tag - 1) * t + std * s + min * m + sec))
     );
 
-    // Rechnet um in Sekunden seit 1 Thadrin;
+    // Rechnet um in Sekunden seit 1 Thadrin
     time = zeit + dif;
     if (time >= 0) {
         thadrin = Math.floor(time / tha);

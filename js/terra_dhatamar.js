@@ -38,7 +38,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
                 double precision  s3,feb,rest,zeit,time,dif,nega,mem,
                 double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty,
                 integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar,
-              */
+            */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -57,13 +57,13 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.;
 
     /*
-                        'Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar';
-                        'V 0.9 beta (28.12.2002 by Christian Dalhoff)';
-                        'Achtung Fehler in Schaltjahren im negativen dha-Bereich';
-                        Konvertierung nach JavaScript 2021 by bertholdm
-                        */
+              Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
+              V 0.9 beta (28.12.2002 by Christian Dalhoff)
+              Achtung Fehler in Schaltjahren im negativen dha-Bereich
+              Konvertierung nach JavaScript 2021 by bertholdm
+          */
 
-    //  'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)';
+    //  'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)'
     if (typ != Math.floor(typ) || typ >= 2 || typ < 0) {
         return "Kein zulaessiges Datumsformat.";
     }
@@ -79,7 +79,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
         atz = jahr;
     }
     if (typ == 1) {
-        // Umrechnung von NGZ in ATZ, die if Schleifen sind noetig, da beide;
+        // Umrechnung von NGZ in ATZ, die if Schleifen sind noetig, da beide
         // Systeme kein Jahr 0 kennen
         if (jahr >= 1) {
             atz = jahr + 3587;
@@ -88,7 +88,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             atz = jahr + 3588;
         }
     }
-    // 'Geben sie den Monat ein (1-12):';
+    // 'Geben sie den Monat ein (1-12):'
     if (mona != Math.floor(mona)) {
         return "Monatseingaben muessen ganzzahlig sein.";
     }
@@ -128,14 +128,14 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     if (std != Math.floor(std)) {
         return "Stundeneingaben muessen ganzzahlig sein.";
     }
-    // 'Geben sie die Minute ein (0-59):';
+    // 'Geben sie die Minute ein (0-59):'
     if (min > 59 || min < 0) {
         return "Minuten muessen im Bereich 0-59 liegen.";
     }
     if (min != Math.floor(min)) {
         return "Minuteneingaben muessen ganzzahlig sein.";
     }
-    //  'Geben sie die Sekunde ein (0-59):';
+    //  'Geben sie die Sekunde ein (0-59):'
     if (sec > 59 || sec < 0) {
         return "Sekunden muessen im Bereich 0-59 liegen.";
     }
@@ -143,8 +143,8 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
         return "Sekundeneingaben muessen ganzzahlig sein.";
     }
 
-    //     Die folgende case-Anweisung ordnet dem Monat die Zahl der seit;
-    //     Jahresbeginn bis zum letzten des Vormonats vergangenen Sekunden zu.;
+    //     Die folgende case-Anweisung ordnet dem Monat die Zahl der seit
+    //     Jahresbeginn bis zum letzten des Vormonats vergangenen Sekunden zu.
     switch (mona) {
         case 1:
             mon = 0;
@@ -184,7 +184,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             break;
     }
 
-    // Kleine Vorsichtsmassnahme;
+    // Kleine Vorsichtsmassnahme
     s0 = 0;
     s1 = 0;
     s2 = 0;
@@ -192,7 +192,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     rest = 0;
     feb = 0;
 
-    // Berechnungen fuer positive Jahreszahlen ATZ.;
+    // Berechnungen fuer positive Jahreszahlen ATZ.
     if (atz > 0) {
         s0 = Math.floor((atz - 1601) / 3200);
         s1 = Math.floor((atz - s0 * 3200 - 1) / 400);
@@ -201,12 +201,12 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             s3 = atz - 1;
         }
         if (atz >= 5 && atz < 1582) {
-            // korrekte julianische Schaltung ab 8 ATZ bis zur gregorianischen;
-            // Kalenderreform;
+            // korrekte julianische Schaltung ab 8 ATZ bis zur gregorianischen
+            // Kalenderreform
             s2 = Math.floor((atz - 1) / 4) - 1;
-            // beruecksichtigt den ausgefallenen Schalttag 4 ATZ;
+            // beruecksichtigt den ausgefallenen Schalttag 4 ATZ
             s3 = atz - 1 - (s2 * 4 + 4);
-            // Fuegt den 29. Februar  ein, wenn das aktuelle Jahr ein Schaltjahr ist.;
+            // Fuegt den 29. Februar  ein, wenn das aktuelle Jahr ein Schaltjahr ist.
             if (s3 == 3 && mona > 2) {
                 feb = t;
             }
@@ -239,7 +239,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
                 feb = 0;
             }
         }
-        // Berechnet die Anzahl der Sekunden seit 1 ATZ.;
+        // Berechnet die Anzahl der Sekunden seit 1 ATZ.
         zeit =
             s0 * j0 +
             s1 * j1 +
@@ -254,7 +254,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
         if (atz > 1582) {
             zeit = zeit + 2 * t;
         }
-        // Schleife fuer das Korrekturjahr 1582 ATZ.;
+        // Schleife fuer das Korrekturjahr 1582 ATZ.
         if (atz == 1582) {
             if (mona <= 9) {
                 zeit = 4.98924576e10 + mon + t * (tag - 1) + std * s + min * m + sec;
@@ -293,7 +293,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             }
         }
     }
-    // Fuehrt o.g. Operationen auf Jahreszahlen ATZ kleiner 1 aus.;
+    // Fuehrt o.g. Operationen auf Jahreszahlen ATZ kleiner 1 aus.
     if (atz < 1) {
         //Prueft ob der 29.Februar zulaessig ist:;
         if (mona == 2 && tag == 29 && atz > -46) {
@@ -376,7 +376,7 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             }
         }
         //      }
-        // Berechnet die Anzahl der Sekunden bis 1 ATZ.;
+        // Berechnet die Anzahl der Sekunden bis 1 ATZ.
         zeit = -(
             s0 * j0 +
             s1 * j1 +
@@ -399,23 +399,23 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     s3 = 0;
     rest = 0;
 
-    // Rechnet um von Sekunden seit 1 Atz auf Sekunden seit 1 da Ark;
+    // Rechnet um von Sekunden seit 1 Atz auf Sekunden seit 1 da Ark
     time = zeit + dif;
     if (time >= 0) {
-        // Berechnet die vollstaendigen 5450 Jahre-Perioden;
+        // Berechnet die vollstaendigen 5450 Jahre-Perioden
         vr0 = Math.floor(time / v0);
-        // Berechnet die vollstaendigen 50 Jahre-Perioden;
+        // Berechnet die vollstaendigen 50 Jahre-Perioden
         vr1 = Math.floor((time - vr0 * v0) / v1);
         if (vr1 != 0 && vr1 / 109 == Math.floor(vr1 / 109)) {
             vr1 = vr1 - 1;
         }
-        // Berechnet die vollstaendigen Jahre;
+        // Berechnet die vollstaendigen Jahre
         vr2 = Math.floor((time - vr0 * v0 - vr1 * v1) / j3);
         if (vr2 != 0 && vr2 / 50 == Math.floor(vr2 / 50)) {
             vr2 = vr2 - 1;
         }
         mem = time - vr0 * v0 - vr1 * v1 - vr2 * j3;
-        // Bestimmung des torlon (Monat) und ty (Tag);
+        // Bestimmung des torlon (Monat) und ty (Tag)
         if (mem > 2.592e7) {
             ty = Math.floor((mem - 2.592e7) / t);
             if (ty <= 32) {
@@ -527,9 +527,9 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
             }
         }
     }
-    // Berechnet die Jahreszahl dha-Tamar;
+    // Berechnet die Jahreszahl dha-Tamar
     tamar = vr0 * 5450 + vr1 * 50 + vr2 + 1;
-    // Berechnet Daten kleiner 1 dha-Tamar;
+    // Berechnet Daten kleiner 1 dha-Tamar
     if (time < 0 && time >= -(j3 + 24 * t)) {
         tamar = -1;
         nega = j3 + 24 * t - Math.abs(time);
