@@ -1,18 +1,24 @@
-function daark_terra(daark, periode, prago, tonta) {
+function Domm_Terra(domm, rhyn, kado, croz, hiddyn) {
     //	 ZEITEINHEITEN IN SEKUNDEN
-    //   j0:    3200*365.2421875 Tage in Sekunden
-    //	 j1:	400*3562425 Tage in Sekunden
-    //	 j2:	4*36525 Tage in Sekunden
+    //	 j1:	400 tropische Terra-Jahre in Sekunden
+    //	 j2:	36525 Tage in Sekunden
     //	 j3:	365 Tage in Sekunden
     //	 mon:	Dauer der Vormonate in Sekunden
     //	 t:	ein Tag in Sekunden
     //	 s:	eine Stunde in Sekunden
     //	 m:	eine Minute in Sekunden
-    //        ark1:  ein Jahr da Ark in Sekunden (Variiert daher a-c)
-    //        per:   eine Periode in Sekunden (Variiert daher a-c)
-    //        pra:   ein Prago in Sekunden (Variiert daher a-c)
-    //        ton:   eine Tonta in Sekunden (Variiert daher a-c)
-    //	 EINGABEWERTE
+    //        dom:   ein Jahr Domm in Sekunden
+    //        rhy:   ein Rhyn in Sekunden
+    //        kad:   eine Kado in Sekunden
+    //        cro:   ein Croz in Sekunden
+    //        hid:   eine Hiddyn in Sekunden
+
+    //   EINGABEWERTE
+    //   domm:  Jahreszahl da Ark
+    //   rhyn:  dommrathischer Standardmonat
+    //   kado:  dommrathische  Standardwoche
+    //   croz:  dommrathischer Standardtag
+    //   hiddyn:dommrathische Standardsekunde
 
     //	 ZWISCHENWERTE UND TESTWERTE
     //   s0:    Anzahl der 3200 Jahre-Schaltzyklen seit 1600 ATZ
@@ -21,33 +27,24 @@ function daark_terra(daark, periode, prago, tonta) {
     //	 s3:    Anzahl der Jahre im aktuellen Schaltzyklus ATZ
     //	 feb:	fuegt in Schaltjahren den 29.02. ein
     //	 zeit:	Anzahl der Sekunden seit 1. Januar 1 ATZ
-    //	 rueck: Regelt Neustart oder Abbruch des Programms
-    //        time:  Anzahl der Sekunden seit 1. Prago des Eyilon 1 da Ark
-    //        dif:   da Ark in Sekunden am 1. Januar 1 ATZ
-    //        vre1:  Anzahl der Schaltperioden seit 1 da Ark
-    //        vre2:  Anzahl der Jahre im aktuellen Schaltzyklus da Ark
-    //        vre3:  Anzahl der 25 Jahre Schaltperioden innerhalb dieser
-    //               50 Jahre Periode
-    //        neg:   Zwischenwert bei da Ark Werten kleiner 0
+    //	 rueck:	Regelt Neustart oder Abbruch des Programms
+    //        time:  Anzahl der Sekunden seit 1. Croz 1 Domm
+    //        dif:   Domm in Sekunden am 1. Januar 1 ATZ
 
-    //   AUSGABEWERTE
-    //	 ngz:	   Jahreszahl NGZ
-    //	 atz:	   Eingabe Jahr
-    //	 mona:	   Eingabe Monat
-    //	 tage:	   Eingabe Tag
-    //	 stun:	   Eingabe Stunde
-    //	 minu:	   Eingabe Minute
-    //	 sec:	   Eingabe Sekunde
+    //  AUSGABEWERTE
+    //  ngz:      Jahr NGZ
+    //  atz:      Jahr ATZ
+    //  monat:    Monat
+    //  tage:     Tag
+    //  stunde:   Stunde
+    //  minute:   Minute
+    //  sekunde:  Sekunde
 
     /*
-                        double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
-                        double precision zeit,time,dif
-                        double precision ark1,ark1a,ark1b,ark2,ark1c,ark2a,ark2b,ark2c
-                        double precision per,per_a,per_b,per_c,peri,prago,pra,pra_a
-                        double precision pra_b,pra_c,ton,ton_a,ton_b,ton_c,tonta
-                        double precision daark,vre1,vre2,vre3,nega
-                        integer          atz,ngz,mona,monat,tag,day,std,min,rueck,typ
-                        integer          periode
+                    double precision  j0, j1, j2, j3, mon, t, m, s, sec, s1, s2, s0, s3, feb, rest
+                    double precision  zeit,dif,time,dom,domm,rhy,rhyn,kad,kado,cro
+                    double precision  hiddyn,croz,hid
+                    integer           mona,monat,day,tag,std,min,atz,ngz,rueck,typ
                     */
 
     const j0 = 1.0098216e11;
@@ -57,222 +54,74 @@ function daark_terra(daark, periode, prago, tonta) {
     const t = 8.64e4;
     const s = 3.6e3;
     const m = 6.0e1;
-    const ark1 = 1.86477700824e9;
-    const ark1a = 1.86477335604e9;
-    const ark1b = 1.86478066044e9;
-    const ark1c = 1.86498323748e9;
-    const ark2 = 3.72730742022e7;
-    const ark2a = 3.72730012022e7;
-    const ark2b = 3.72730815022e7;
-    const ark2c = 3.72731140383e7;
-    const per = 3.67624841447e6;
-    const per_a = 3.67624121447e6;
-    const per_b = 3.67625561447e6;
-    const per_c = 3.67625234351e6;
-    const pra = 1.02118011513e5;
-    const pra_a = 1.02117811513e5;
-    const pra_b = 1.02118211513e5;
-    const pra_c = 1.02118120653e5;
-    const ton = 5.10590057565e3;
-    const ton_a = 5.10589057565e3;
-    const ton_b = 5.10591057565e3;
-    const ton_c = 5.10590603263e3;
-    const dif = 6.44647557545e11;
+    const dif = 3.23884083826e13;
+    const dom = 7.5e7;
+    const rhy = 7.5e6;
+    const kad = 7.5e5;
+    const cro = 7.5e4;
+    const hid = 0.75;
 
-    /*
-Programm zur Umrechnung von Daten da Ark nach ATZ/NGZ"
-V 4.0 beta (30.09.2002 by Christian Dalhoff)
-Konvertierung nach JavaScript 2021 by bertholdm
-*/
-    let vre1 = 0;
-    let vre2 = 0;
-    let vre3 = 0;
-    let peri = 0;
+    /* Programm zur Umrechnung von Daten Domm nach ATZ/NGZ
+            V 2.0 (05.10.2002 by Christian Dalhoff)
+            Konvertierung nach JavaScript 2021 by bertholdm
+            */
 
-    /*
-    Zuordnung der Perioden-Nummern:
-    Eyilon =  1
-    Hara   =  2
-    Tarman =  3
-    Dryhan =  4
-    Messon =  5
-    Tedar  =  6
-    Ansoor =  7
-    Prikur =  8
-    Coroma =  9
-    Tartor = 10
-    Katanen des Capit   = 11
-    Pragos des Vretatou = 12
-    Tiga Ranton = 13
-*/
-    // Nimmt die Eingabewerte an und ueberprueft; ob sie zulaessig sind.
+    // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
 
-    // ("Geben sie das Jahr da Ark ein:")
-    if (daark == 0) {
-        return "Ein Jahr 0 da Ark existiert nicht!";
+    // 'Geben sie das Jahr Domm ein:';
+    if (domm == 0) {
+        return "Ein Jahr 0 Domm existiert nicht.";
     }
-    if (daark != Math.floor(daark)) {
-        return "da Ark-Eingaben muessen ganzzahlig sein!";
+    if (domm != Math.floor(domm)) {
+        return "domm-Eingaben muessen ganzzahlig sein.";
     }
-    // ("Geben sie die Periode (1-13) ein:")
-    if (periode > 13 || periode < 1) {
-        return "Perioden muessen im Bereich 1-13 liegen!";
+    // 'Geben sie den Rhyn (1-10) ein:';
+    if (rhyn > 10 || rhyn < 1) {
+        return "Rhyn muessen im Bereich 1-10 liegen";
     }
-    if (periode != Math.floor(periode)) {
-        return "Perioden muessen ganzzahlig sein!";
+    if (rhyn != Math.floor(rhyn)) {
+        return "Rhyn muessen ganzzahlig sein.";
     }
-    if (periode == 12 && daark / 50 - Math.floor(daark / 50) != 0) {
-        return "In diesem Jahr gab es keine Pragos des Vretatou!";
+    // 'Geben sie die Kado ein (1-10):';
+    if (kado > 10 || kado < 1) {
+        return "Kados muessen im Bereich 1-10 liegen";
     }
-    if (periode == 12) {
-        periode = 11;
-        peri = 5;
+    if (kado != Math.floor(kado)) {
+        return "Kados muessen ganzzahlig sein.";
     }
-    if (periode == 13 && daark < 19300) {
-        return "Tiga Ranton wurde erst 19300 da Ark eingefuehrt!";
+    // 'Geben sie den Croz ein (1-10):';
+    if (croz > 10 || croz < 0) {
+        return "Croz muessen im Bereich 1-10 liegen.";
     }
-    if (periode == 13 && daark > 21499) {
-        return "Tiga Ranton wurde 21500 da Ark abgeschafft!";
+    if (croz != Math.floor(croz)) {
+        return "Croz muessen ganzzahlig sein.";
     }
-    if (periode == 13 && daark / 25 - Math.floor(daark / 25) != 0) {
-        return "In diesem Jahr gab es kein Tiga Ranton!";
+    // 'Geben sie die Hiddyn ein (0-99999):';
+    if (hiddyn > 99999 || hiddyn < 0) {
+        return "Hiddyn muessen im Bereich 0-99999 liegen.";
     }
-    if (periode == 13) {
-        periode = 11;
-        peri = 16;
-    }
-    // ("Geben sie den Prago ein (1-36):")
-    if (prago > 36 || prago < 1) {
-        return "Pragos muessen im Bereich 1-36 liegen!";
-    }
-    if (prago != Math.floor(prago)) {
-        return "Pragos muessen ganzzahlig sein!";
-    }
-    if (periode == 11) {
-        if (prago > 5 && peri == 0) {
-            return "Die Katanen des Capits haben maximal 5 Pragos!";
-        }
-        if (peri == 5 && prago > 11) {
-            return "Die Pragos des Vretatou haben maximal 11 Pragos!";
-        }
-        if (peri == 16 && prago > 1) {
-            return "Tiga Ranton ist nur ein Prago!";
-        }
-    }
-    // ("Geben sie die Tonta ein (0-19.9999):")
-    if (tonta > 20 || tonta < 0) {
-        return "Tontas muessen im Bereich 0-19.9999 liegen!";
+    if (hiddyn != Math.floor(hiddyn)) {
+        return "Hiddyn muessen ganzzahlig sein.";
     }
 
-    // Berechnet fuer positive Jahreszahlen da Ark die seit 1 da Ark
-    // vergangenen kompletten Schaltperioden und die Anzahl der Jahre seit der
-    // Letzten.
-    if (daark > 0) {
-        vre1 = Math.floor((daark - 1) / 50);
-        vre2 = daark - 1 - vre1 * 50;
-        // Bis 6500 da Ark;
-        if (daark <= 6500) {
-            // Berechnet die Anzahl der Sekunden seit 1 da Ark.
-            time =
-                vre1 * ark1 +
-                vre2 * ark2 +
-                (periode - 1) * per +
-                peri * pra +
-                (prago - 1) * pra +
-                tonta * ton;
-        }
-        // 6501 da Ark bis 8750 da Ark
-        if (daark > 6500 && daark <= 8750) {
-            vre1 = vre1 - 130;
-            time =
-                2.42421011071e11 +
-                vre1 * ark1a +
-                vre2 * ark2a +
-                (periode - 1) * per_a +
-                peri * pra_a +
-                (prago - 1) * pra_a +
-                tonta * ton_a;
-        }
-        // 8751 da Ark bis 14000 da Ark
-        if (daark > 8750 && daark <= 14000) {
-            vre1 = vre1 - 175;
-            time =
-                3.26335812093e11 +
-                vre1 * ark1 +
-                vre2 * ark2 +
-                (periode - 1) * per +
-                peri * pra +
-                (prago - 1) * pra +
-                tonta * ton;
-        }
-        // 14001 da Ark bis 16250 da Ark
-        if (daark > 14000 && daark <= 16250) {
-            vre1 = vre1 - 280;
-            time =
-                5.22137397958e11 +
-                vre1 * ark1b +
-                vre2 * ark2b +
-                (periode - 1) * per_b +
-                peri * pra_b +
-                (prago - 1) * pra_b +
-                tonta * ton_b;
-        }
-        // 16250 bis zur Zerstoerung von ArkonIII
-        if (daark >= 16251 && daark < 19300) {
-            time =
-                vre1 * ark1 +
-                vre2 * ark2 +
-                (periode - 1) * per +
-                peri * pra +
-                (prago - 1) * pra +
-                tonta * ton;
-        }
-        // Nach der Zerstoerung von ArkonIII
-        if (daark == 19300) {
-            time =
-                7.19765528807e11 +
-                (periode - 1) * per_c +
-                peri * pra_c +
-                (prago - 1) * pra_c +
-                tonta * ton_c;
-        }
-        if (daark >= 19301 && daark < 21500) {
-            vre3 = Math.floor((daark - 19301) / 25);
-            vre2 = daark - 19301 - vre3 * 25;
-            if (vre3 / 2 - Math.floor(vre3 / 2) == 0 && peri == 16) {
-                peri = 5;
-            }
-            time =
-                7.19804027313e11 +
-                vre2 * ark2c +
-                vre3 * (25 * ark2c + pra_c) +
-                Math.floor(vre3 / 2) * 11 * pra_c +
-                (periode - 1) * per_c +
-                (prago - 1) * pra_c +
-                tonta * ton_c +
-                peri * pra_c;
-        }
-        // Nach der Wiederherstellung von Tiga Ranton
-        if (daark == 21500) {
-            time =
-                8.0182479123038e11 +
-                (periode - 1) * per +
-                peri * pra +
-                (prago - 1) * pra +
-                tonta * ton;
-        }
-        if (daark >= 21501) {
-            vre1 = (daark - 21501) / 50;
-            vre2 = daark - 21501 - vre1 * 50;
-            time =
-                8.01863187602e11 +
-                vre1 * ark1 +
-                vre2 * ark2 +
-                (periode - 1) * per +
-                (prago - 1) * pra +
-                tonta * ton +
-                peri * pra;
-        }
+    // Berechnet fuer positive Jahreszahlen Domm die seit 1 Domm
+    // vergangenen Sekunden
+    if (croz >= 1) {
+        time =
+            (domm - 1) * dom +
+            (rhyn - 1) * rhy +
+            (kado - 1) * kad +
+            (croz - 1) * cro +
+            hiddyn * hid;
+    }
+    // Fuehrt o.g. Operationen auf Jahreszahlen Domm kleiner 1 aus.
+    if (domm < 1) {
+        domm = Math.abs(domm);
+        time = -(
+            (domm - 1) * dom +
+            dom -
+            ((rhyn - 1) * rhy + (kado - 1) * kad + (croz - 1) * cro + hiddyn * hid)
+        );
     }
     // Rechnet um in Sekunden seit 1 atz
     zeit = time - dif;
@@ -285,7 +134,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
     mona = 0;
     tag = 0;
     // 1 ATZ bis 4 ATZ;
-    if (zeit >= 0 && zeit < 1.26143999) {
+    if (zeit >= 0 && zeit < 1.26143999e8) {
         s3 = Math.floor(zeit / j3);
         atz = s3 + 1;
         mon = zeit - s3 * j3;
@@ -298,10 +147,10 @@ Konvertierung nach JavaScript 2021 by bertholdm
         mon = zeit - (s2 * j2 + s3 * j3);
         s3 = s3 - 4;
     }
-    // Ab 15.10.1582 ATZ;
+    // Ab 15.10.1582 ATZ  ;
     if (zeit > 4.99163904e10) {
         zeit = zeit - 2 * t;
-        s0 = Math.floor((zeit - 5.04911232) / j0);
+        s0 = Math.floor((zeit - 5.04911232e10) / j0);
         s1 = Math.floor((zeit - s0 * j0) / j1);
         s2 = Math.floor((zeit - s0 * j0 - s1 * j1) / j2);
         s3 = Math.floor((zeit - s0 * j0 - s1 * j1 - s2 * j2) / j3);
@@ -389,7 +238,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
     }
     if (mon > 2.36736e7 && s3 == 3) {
         monat = 10;
-        day = Math.floor(mon - 2.36736e7);
+        day = mon - 2.36736e7;
     }
     if (mon > 2.62656e7 && s3 != 3) {
         monat = 11;
@@ -407,7 +256,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
         monat = 12;
         day = Math.floor(mon - 2.8944e7);
     }
-    // -1 ATZ bis -9 ATZ;
+    // -1 ATZ bis -9 ATZ
     if (zeit < 0) {
         if (zeit < 0 && zeit > -2.52288e8) {
             zeit = Math.abs(zeit);
@@ -426,14 +275,14 @@ Konvertierung nach JavaScript 2021 by bertholdm
             mona = zeit - s2 * (3 * j3 + t) - (s3 + 6) * j3;
             mon = j3 - mona;
             s3 = s3 - 1;
-            // Beruecksichtigt; dass -45 ATZ kein Schaltjahr war;
+            // Beruecksichtigt, dass -45 ATZ kein Schaltjahr war
             if (atz == 45) {
                 s3 = 0;
             }
         }
         // Bis -45 ATZ;
         if (zeit < -1.4201568e9) {
-            // -t gleicht die Fehler zu Beginn der julianischen Schaltung aus//;
+            // -t gleicht die Fehler zu Beginn der julianischen Schaltung aus
             zeit = Math.abs(zeit) - t;
             s0 = Math.floor(zeit / j0);
             s1 = Math.floor((zeit - s0 * j0) / j1);
@@ -443,7 +292,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
             mona = zeit - s0 * j0 - s1 * j1 - s2 * j2 - s3 * j3;
             mon = j3 - mona;
             s3 = s3 + 1;
-            // Korrektur fuer nicht durch 4 teilbare Jahrhunderte;
+            // Korrektur fuer nicht durch 4 teilbare Jahrhunderte
             if ((atz + 3) % 100 == 0) {
                 s3 = 0;
             }
@@ -454,7 +303,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
                 s3 = 0;
             }
         }
-        // Berechnung des Monats;
+        // Berechnung des Monats
         if (mon <= 2.6784e6) {
             monat = 1;
             day = Math.floor(mon);
@@ -544,6 +393,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
             day = Math.floor(mon - 2.8944e7);
         }
     }
+
     tag = Math.floor(day / t);
     std = Math.floor((day - tag * t) / s);
     min = Math.floor((day - tag * t - std * s) / m);
@@ -620,20 +470,21 @@ Konvertierung nach JavaScript 2021 by bertholdm
     if (atz > 3587) {
         ngz = atz - 3587;
     }
+    // ToDo: Ersetzung der Konkatenation durch Template Literal
     return (
         (tag + 1).toString() +
-        "." +
+        " " +
         monat +
         "." +
         atz +
         " ATZ" +
-        " / " +
+        " /" +
         ngz +
-        " NGZ " +
+        " NGZ" +
         std +
-        "h " +
+        "h" +
         min +
-        "min " +
+        "min" +
         Math.floor(sec) +
         "sec"
     );
