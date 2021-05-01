@@ -42,13 +42,13 @@ function terra_daark(typ, jahr, mona, tag, std, min, sec) {
     //   tonta:    Tontas da Ark
 
     /*
-                          double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
-                          double precision  s3,feb,rest,zeit,time,dif,vre1,vre2,vre3,daark
-                          double precision	ark1,ark1a,ark1b,ark1c,ark2,ark2a,ark2b,ark2c
-                          double precision	per,per_a,per_b,per_c,peri,prago,pra,pra_a,pra_b
-                          double precision  pra_c,ton,ton_a,ton_b,ton_c,tonta,nega
-                          integer           mona,monat,day,atz,periode,ngz,rueck,typ
-                      */
+                            double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
+                            double precision  s3,feb,rest,zeit,time,dif,vre1,vre2,vre3,daark
+                            double precision	ark1,ark1a,ark1b,ark1c,ark2,ark2a,ark2b,ark2c
+                            double precision	per,per_a,per_b,per_c,peri,prago,pra,pra_a,pra_b
+                            double precision  pra_c,ton,ton_a,ton_b,ton_c,tonta,nega
+                            integer           mona,monat,day,atz,periode,ngz,rueck,typ
+                        */
 
     let mon, s0, s1, s2, s3;
 
@@ -83,10 +83,10 @@ function terra_daark(typ, jahr, mona, tag, std, min, sec) {
 
     // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
     /*
-                              'Programm zur Umrechnung von Daten ATZ/NGZ nach da Ark'
-                              'V 4.0 beta (30.09.2002 by Christian Dalhoff)'
-                              Konvertierung nach JavaScript 2021 by bertholdm
-                              */
+                                'Programm zur Umrechnung von Daten ATZ/NGZ nach da Ark'
+                                'V 4.0 beta (30.09.2002 by Christian Dalhoff)'
+                                Konvertierung nach JavaScript 2021 by bertholdm
+                                */
 
     // 'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)'
     if (typ != Math.floor(typ) || typ >= 2 || typ < 0) {
@@ -532,8 +532,8 @@ function terra_daark(typ, jahr, mona, tag, std, min, sec) {
         daark = 19300;
         peri = (time - 7.19765528807e11) / per_c;
         periode = Math.floor(peri);
-        prago = Math.floor((time - 7.19765528807 - periode * per_c) / pra_c);
-        tonta = (time - 7.19765528807 - periode * per_c - prago * pra_c) / ton_c;
+        prago = Math.floor((time - 7.19765528807e11 - periode * per_c) / pra_c);
+        tonta = (time - 7.19765528807e11 - periode * per_c - prago * pra_c) / ton_c;
     }
     // 19301 da Ark - 21499 da Ark
     if (time > 7.19804027314e11) {
