@@ -34,12 +34,12 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     //        AUSGABEWERTE
 
     /*
-                                              double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
-                                              double precision  s3,feb,rest,zeit,time,dif,nega,mem,dha
-                                              double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
-                                              integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
-                                              integer           torlon
-                                        */
+              double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
+              double precision  s3,feb,rest,zeit,time,dif,nega,mem,dha
+              double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
+              integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
+              integer           torlon
+          */
 
     let mon;
     let s0, s1, s2, s3;
@@ -60,25 +60,25 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     const dif = 1.779780211e12;
 
     /* 
-                                          'Programm zur Umrechnung von dha-Tamar nach ATZ/NGZ'
-                                          'V 1.0 beta (28.12.2002 by Christian Dalhoff)'
-                                          Konvertierung nach JavaScript 2021 by bertholdm
+            Programm zur Umrechnung von dha-Tamar nach ATZ/NGZ'
+            V 1.0 beta (28.12.2002 by Christian Dalhoff)'
+            Konvertierung nach JavaScript 2021 by bertholdm
 
-                                          'Zuordnung der Torlon-Nummern:';
-                                          'Jannhis  =  1';
-                                          'Keub     =  2';
-                                          'Nazhach  =  3';
-                                          'Uhs      =  4';
-                                          'Fohlad   =  5';
-                                          'Sikkhla  =  6';
-                                          'Adomet   =  7';
-                                          'Aizhidos =  8';
-                                          'Illhach  =  9';
-                                          'Thiodege = 10';
-                                          'Ezrah    = 11';
-                                          'Eizhel   = 12';
-                                          'Berlen`ty der Vrehetatou = 13';
-                                          */
+            Zuordnung der Torlon-Nummern:
+            Jannhis  =  1
+            Keub     =  2
+            Nazhach  =  3
+            Uhs      =  4
+            Fohlad   =  5
+            Sikkhla  =  6
+            Adomet   =  7
+            Aizhidos =  8
+            Illhach  =  9
+            Thiodege = 10
+            Ezrah    = 11
+            Eizhel   = 12
+            Berlen`ty der Vrehetatou = 13
+        */
 
     // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
 
@@ -159,8 +159,8 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
         return "Sekunden muessen im Bereich 0-11.99 liegen.";
     }
 
-    //     Die folgende case-Anweisung ordnet dem Torlon die Zahl der seit;
-    //     Jahresbeginn bis zum letzten des Vortorlon vergangenen Sekunden zu.;
+    //     Die folgende case-Anweisung ordnet dem Torlon die Zahl der seit
+    //     Jahresbeginn bis zum letzten des Vortorlon vergangenen Sekunden zu.
     switch (torlon) {
         case 1:
             tor = 0;
@@ -203,15 +203,15 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
             break;
     }
 
-    // Berechnungen fuer positive Jahreszahlen dha-Tamar.;
+    // Berechnungen fuer positive Jahreszahlen dha-Tamar.
     if (dha > 0) {
-        // Berechnet die Anzahl der kompletten 5450-Jahre Schaltzyklen.;
+        // Berechnet die Anzahl der kompletten 5450-Jahre Schaltzyklen.
         s0 = Math.floor((dha - 1) / 5450);
-        // Berechnet die Anzahl der kompletten 50-Jahre Schaltzyklen.;
+        // Berechnet die Anzahl der kompletten 50-Jahre Schaltzyklen.
         s1 = Math.floor((dha - 1 - s0 * 5450) / 50);
-        // Berechnet die Anzahl der kompletten Jahre seit dem letzten Schaltjahr ;
+        // Berechnet die Anzahl der kompletten Jahre seit dem letzten Schaltjahr
         s2 = dha - s0 * 5450 - s1 * 50 - 1;
-        // Berechnet die Anzahl der Sekunden seit 1 dha-Tamar.;
+        // Berechnet die Anzahl der Sekunden seit 1 dha-Tamar.
         zeit =
             s0 * v0 +
             s1 * v1 +
@@ -223,7 +223,7 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
             co3 * c3;
     }
 
-    // Fuehrt o.g. Operationen auf Jahreszahlen dha-Tamar kleiner 1 aus.;
+    // Fuehrt o.g. Operationen auf Jahreszahlen dha-Tamar kleiner 1 aus.
     if (dha == -1) {
         // Berechnet die Anzahl der Sekunden bis 1 ATZ.;
         zeit = -(j3 + 24 * t - tor - (ty - 1) * t - co1 * c1 - co2 * c2 - co3 * c3);
@@ -234,7 +234,7 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
         rest = dha - s0 * 5450;
         s1 = Math.floor((rest - 2) / 50);
         s2 = dha - 5450 * s0 - s1 * 50 - 1;
-        // Berechnet die Anzahl der Sekunden bis 1 ATZ.;
+        // Berechnet die Anzahl der Sekunden bis 1 ATZ.
         zeit = -(
             s0 * v0 +
             s1 * v1 +
@@ -249,7 +249,7 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
         );
     }
 
-    // Kleine Vorsichtsmassnahme;
+    // Kleine Vorsichtsmassnahme
     co1 = 0;
     co2 = 0;
     co3 = 0;
@@ -263,11 +263,11 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     s3 = 0;
     rest = 0;
 
-    // Rechnet um in Sekunden seit 1 atz;
-    // time ist undefiniert!
+    // Rechnet um in Sekunden seit 1 atz
+    // time ist in der Fortran-Quelle undefiniert! Hier mit 0 initialisiert.
     zeit = time - dif;
 
-    // Kleine Vorsichtsmassnahme;
+    // Kleine Vorsichtsmassnahme
     s0 = 0;
     s1 = 0;
     s2 = 0;
