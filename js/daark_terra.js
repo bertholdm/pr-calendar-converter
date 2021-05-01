@@ -40,15 +40,15 @@ function daark_terra(daark, periode, prago, tonta) {
     //	 sec:	   Eingabe Sekunde
 
     /*
-                        double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
-                        double precision zeit,time,dif
-                        double precision ark1,ark1a,ark1b,ark2,ark1c,ark2a,ark2b,ark2c
-                        double precision per,per_a,per_b,per_c,peri,prago,pra,pra_a
-                        double precision pra_b,pra_c,ton,ton_a,ton_b,ton_c,tonta
-                        double precision daark,vre1,vre2,vre3,nega
-                        integer          atz,ngz,mona,monat,tag,day,std,min,rueck,typ
-                        integer          periode
-                    */
+                          double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
+                          double precision zeit,time,dif
+                          double precision ark1,ark1a,ark1b,ark2,ark1c,ark2a,ark2b,ark2c
+                          double precision per,per_a,per_b,per_c,peri,prago,pra,pra_a
+                          double precision pra_b,pra_c,ton,ton_a,ton_b,ton_c,tonta
+                          double precision daark,vre1,vre2,vre3,nega
+                          integer          atz,ngz,mona,monat,tag,day,std,min,rueck,typ
+                          integer          periode
+                      */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -285,7 +285,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
     mona = 0;
     tag = 0;
     // 1 ATZ bis 4 ATZ;
-    if (zeit >= 0 && zeit < 1.26143999) {
+    if (zeit >= 0 && zeit < 1.26143999e8) {
         s3 = Math.floor(zeit / j3);
         atz = s3 + 1;
         mon = zeit - s3 * j3;
@@ -301,7 +301,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
     // Ab 15.10.1582 ATZ;
     if (zeit > 4.99163904e10) {
         zeit = zeit - 2 * t;
-        s0 = Math.floor((zeit - 5.04911232) / j0);
+        s0 = Math.floor((zeit - 5.04911232e10) / j0);
         s1 = Math.floor((zeit - s0 * j0) / j1);
         s2 = Math.floor((zeit - s0 * j0 - s1 * j1) / j2);
         s3 = Math.floor((zeit - s0 * j0 - s1 * j1 - s2 * j2) / j3);
