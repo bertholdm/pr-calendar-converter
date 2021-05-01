@@ -1,0 +1,361 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="terra_dhatamar.js" defer></script>
+    <script type="text/javascript" src="terra_daark.js" defer></script>
+    <script type="text/javascript" src="terra_domm.js" defer></script>
+    <script type="text/javascript" src="terra_thadrin.js" defer></script>
+    <script type="text/javascript" src="dhatamar_terra.js" defer></script>
+    <script type="text/javascript" src="daark_terra.js" defer></script>
+    <script type="text/javascript" src="domm_terra.js" defer></script>
+    <script type="text/javascript" src="thadrin_terra.js" defer></script>
+    <link rel="stylesheet" href="pr_date_conversion.css">
+</head>
+
+<body>
+    <noscript>Die Berechnungen werden mit JavaScript durchgeführt. Bitte JavaScript aktivieren.</noscript>
+    <div class="heading">
+        <p>
+            <strong>Umrechnung von Datumsangaben zwischen Lemuria-, Arkon, Dommrath-, Thadrin- und Terra-Kalender</strong></p>
+        <p>
+            V 1.0 beta (28.12.2002 by Christian Dalhoff)<br />
+            <small>http://www.joelh.de/download/zeitumrechner.zip<br />
+            Konvertierung der Fortran-Quellen nach JavaScript und HTML 2021 by Michael Detambel</small>
+        </p>
+    </div>
+    <form>
+        <div id="from-calendar-data">
+            <p><strong>Ausgangskalender</strong></p>
+            <label class="collapse" for="_1">Lemuria</label>
+            <input id="_1" type="radio" name="from-calendar" value="Lemuria">
+            <div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="dha">Jahr dhaTamar</label><input type="number" name="dha" id="dha" required minlength="1">
+                    </div>
+                    <div class="cell">
+                        <label for="torlon">Torlon</label>
+                        <select name="torlon" id="torlon" size="1">
+                            <option value="1">Jannhis</option>
+                            <option value="2">Keub</option>
+                            <option value="3">Nazhach</option>
+                            <option value="4">Uhs</option>
+                            <option value="5">Fohlad</option>
+                            <option value="6">Sikkhla</option>
+                            <option value="7">Adomet</option>
+                            <option value="8">Aizhidos</option>
+                            <option value="9">Illhach</option>
+                            <option value="10">Thiodege</option>
+                            <option value="11">Ezrah</option>
+                            <option value="12">Eizhel</option>
+                            <option value="13">Berlen`ty der Vrehetatou</option>
+                        </select>
+                    </div>
+                    <div class="cell">
+                        <label for="ty">Ty</label><input type="number" name="ty" id="ty" required minlength="1" maxlength="2"><br />
+                    </div>
+                </div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="co1">Coberlen`ty</label><input type="number" name="co1" id="co1" minlength="1" maxlength="2" value="0">
+                    </div>
+                    <div class="cell">
+                        <label for="co2">Cobol`ty</label><input type="number" name="co2" id="co2" minlength="1" maxlength="2" value="0">
+                    </div>
+                    <div class="cell">
+                        <label for="co3">Sekunde</label><input type="number" name="co3" id="co3" minlength="1" maxlength="2" value="0"><br />
+                    </div>
+                </div>
+
+            </div>
+            <label class="collapse" for="_2">Arkon</label>
+            <input id="_2" type="radio" name="from-calendar" value="Arkon">
+            <div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="daark">Jahr da Ark</label>
+                        <input type="number" name="daark" id="daark" required minlength="1">
+                    </div>
+                    <div class="cell">
+                        <label for="periode">Periode</label>
+                        <select name="periode" id="periode" size="1">
+                            <option value="1">Eyilon</option>
+                            <option value="2">Hara</option>
+                            <option value="3">Tarman</option>
+                            <option value="4">Dryhan</option>
+                            <option value="5">Messon</option>
+                            <option value="6">Tedar</option>
+                            <option value="7">Ansoor</option>
+                            <option value="8">Prikur</option>
+                            <option value="9">Coroma</option>
+                            <option value="10">Tartor</option>
+                            <option value="11">Katanen des Capit</option>
+                            <option value="12">Pragos des Vretatou</option>
+                            <option value="13">Tiga Ranton</option>
+                        </select>
+                    </div>
+                    <div class="cell">
+                        <label for="ty">Prago</label>
+                        <input type="number" name="prago" id="prago" required minlength="1" maxlength="2"><br />
+                    </div>
+                </div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="tonta">Tonta</label>
+                        <input type="number" name="tonta" id="tonta" minlength="1" maxlength="2" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <label class="collapse" for="_3">Terra</label>
+            <input id="_3" type="radio" name="from-calendar" value="Terra">
+            <div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="jahr">Jahr</label><input type="number" name="jahr" , id="jahr" required minlength="1">
+                    </div>
+                    <div class="cell">
+                        <label for="monat">Monat</label><input type="number" name="monat" , id="monat" required minlength="1" maxlength="2">
+                    </div>
+                    <div class="cell">
+                        <label for="tag">Tag</label><input type="number" name="tag" , id="tag" required minlength="1" maxlength="2"><br />
+                    </div>
+                    <div class="cell">
+                        <label for="typ">ATZ / NGZ</label>
+                        <select name="typ" id="typ" size="1">
+                            <option value="0">ATZ</option>
+                            <option value="1">NGZ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="std">Stunde</label><input type="number" name="std" , id="std" minlength="1" maxlength="2" value="0">
+                    </div>
+                    <div class="cell">
+                        <label for="min">Minute</label><input type="number" name="min" , id="min" minlength="1" maxlength="2" value="0">
+                    </div>
+                    <div class="cell">
+                        <label for="sec">Sekunde</label><input type="number" name="sec" , id="sec" minlength="1" maxlength="2" value="0"><br />
+                    </div>
+                </div>
+            </div>
+            <label class="collapse" for="_4">Dommrath</label>
+            <input id="_4" type="radio" name="from-calendar" value="Dommrath">
+            <div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="domm">Jahr da Ark</label><input type="number" name="domm" , id="domm" required minlength="1">
+                    </div>
+                    <div class="cell">
+                        <label for="rhyn">Rhyn (Standardmonat)</label><input type="number" name="rhyn" , id="rhyn" required minlength="1" maxlength="2">
+                    </div>
+                    <div class="cell">
+                        <label for="kado">Kado (Standardwoche)</label><input type="number" name="kado" , id="kado" required minlength="1" maxlength="2"><br />
+                    </div>
+                    <div class="cell">
+                        <label for="croz">Croz (Standardtag)</label><input type="number" name="croz" , id="croz" required minlength="1" maxlength="2"><br />
+                    </div>
+                </div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="hiddyn">Hiddyn (Standardsekunde)</label><input type="number" name="hiddyn" , id="hiddyn" minlength="1" maxlength="5"><br />
+                    </div>
+                </div>
+            </div>
+            <label class="collapse" for="_5">Thadrin</label>
+            <input id="_5" type="radio" name="from-calendar" value="Thadrin">
+            <div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="thadrin">Jahr Thadrin</label><input type="number" name="thadrin" , id="thadrin_terra" required minlength="1">
+                    </div>
+                    <div class="cell">
+                        <label for="burdrin">Burdrin (Tag)</label><input type="number" name="burdrin" , id="burdrin" required minlength="1" maxlength="2">
+                    </div>
+                </div>
+                <div class="inline">
+                    <div class="cell">
+                        <label for="sefrin">Sefrin (Stunde)</label><input type="number" name="sefrin" , id="sefrin" required minlength="1" maxlength="2"><br />
+                    </div>
+                    <div class="cell">
+                        <label for="adrin">Adrin (Stunde)</label><input type="number" name="adrin" , id="adrin" required minlength="1" maxlength="2"><br />
+                    </div>
+                    <div class="cell">
+                        <label for="ofrin">Ofrin (Sekunde)</label><input type="number" name="ofrin" , id="ofrin" required minlength="1" maxlength="2"><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div id="to-calendar">
+            <p>
+                <strong>Zielkalender</strong><br />
+                <small>(Nicht alle Umrechnungen sind verfügbar)</small>
+            </p>
+            <input type="radio" id="dhatamar" name="to-calendar" value="Lemuria">
+            <label for="dhatamar">Lemuria (dha Tamar)</label><br />
+            <input type="radio" id="daark" name="to-calendar" value="Arkon">
+            <label for="daark">Arkon (da Ark)</label><br />
+            <input type="radio" id="terra" name="to-calendar" value="Terra">
+            <label for="terra">Terra (ATZ und NGZ)</label><br />
+            <input type="radio" id="domm" name="to-calendar" value="Dommrath">
+            <label for="domm">Dommrath</label><br />
+            <input type="radio" id="thadrin" name="to-calendar" value="Thadrin">
+            <label for="thadrin">Thadrin</label>
+        </div>
+        <div>
+            <button type="button" id="convert">Datum umrechnen</button><br />
+        </div>
+        <div>
+            <label for="converted-date"><strong>Datum im Zielkalender</strong></label>
+        </div>
+        <div>
+            <textarea rows="4" cols="50" name="converted-date" id="converted-date"></textarea>
+        </div>
+        <div>
+            <input type="reset" id="reset" name="reset" value="Eingabedaten löschen">
+        </div>
+    </form>
+
+    <script>
+        document.querySelector('#convert').addEventListener('click', convert_date);
+
+        function convert_date() {
+
+            const from_calendar_choices = document.querySelectorAll('input[name="from-calendar"]');
+            let from_calendar;
+            for (const rb of from_calendar_choices) {
+                if (rb.checked) {
+                    from_calendar = rb.value;
+                    break;
+                }
+            }
+            console.log(from_calendar);
+            if (typeof from_calendar == 'undefined') {
+                alert("Bitte einen Ausgangskalender wählen");
+                return;
+            }
+
+            const to_calendar_choices = document.querySelectorAll('input[name="to-calendar"]');
+            let to_calendar;
+            for (const rb of to_calendar_choices) {
+                if (rb.checked) {
+                    to_calendar = rb.value;
+                    break;
+                }
+            }
+            console.timeLog(to_calendar);
+            if (typeof to_calendar == 'undefined') {
+                alert("Bitte einen Zielkalender wählen");
+                return;
+            }
+
+            if (from_calendar == to_calendar) {
+                alert("Ausgangs- und Zielkalender sind identisch!");
+                return;
+            }
+
+            let converted_date = "";
+
+            switch (from_calendar) {
+                case "Lemuria":
+                    const dha = parseInt(document.getElementById('dha').value);
+                    const torlon_choices = document.getElementById('torlon');
+                    const torlon = parseInt(torlon_choices.options[torlon_choices.selectedIndex].value);
+                    const ty = parseInt(document.getElementById('ty').value);
+                    const co1 = parseInt(document.getElementById('co1').value);
+                    const co2 = parseInt(document.getElementById('co2').value);
+                    const co3 = parseInt(document.getElementById('co3').value);
+                    console.log(dha, torlon, ty, co1, co2, co3);
+                    switch (to_calendar) {
+                        case "Terra":
+                            converted_date = dhatamar_terra(dha, torlon, ty, co1, co2, co3);
+                            break;
+                        default:
+                            alert('Konvertierung nicht verfügbar.');
+                            break;
+                    }
+                    break;
+                case "Arkon":
+                    const daark = parseInt(document.getElementById('daark').value);
+                    const periode_choices = document.getElementById('periode');
+                    const periode = parseInt(periode_choices.options[periode_choices.selectedIndex].value);
+                    const prago = parseInt(document.getElementById('prago').value);
+                    const tonta = parseInt(document.getElementById('tonta').value);
+                    console.log("" + daark + periode + prago + tonta);
+                    switch (to_calendar) {
+                        case "Terra":
+                            converted_date = daark_terra(daark, periode, prago, tonta);
+                            break;
+                        default:
+                            alert('Konvertierung nicht verfügbar.');
+                            break;
+                    }
+                    break;
+                case "Terra":
+                    const typ_choices = document.getElementById('typ');
+                    const typ = parseInt(typ_choices.options[typ_choices.selectedIndex].value);
+                    const jahr = parseInt(document.getElementById('jahr').value);
+                    const monat = parseInt(document.getElementById('monat').value);
+                    const tag = parseInt(document.getElementById('tag').value);
+                    const std = parseInt(document.getElementById('std').value);
+                    const min = parseInt(document.getElementById('min').value);
+                    const sec = parseInt(document.getElementById('sec').value);
+                    switch (to_calendar) {
+                        case "Lemuria":
+                            converted_date = terra_dhatamar(typ, jahr, monat, tag, std, min, sec);
+                            break;
+                        case "Arkon":
+                            converted_date = terra_daark(typ, jahr, monat, tag, std, min, sec);
+                            break;
+                        case "Dommrath":
+                            converted_date = terra_domm(typ, jahr, monat, tag, std, min, sec);
+                            break;
+                        case "Thadrin":
+                            converted_date = terra_thadrin(typ, jahr, monat, tag, std, min, sec);
+                            break;
+                        default:
+                            alert('Konvertierung nicht verfügbar.');
+                            break;
+                    }
+                    break;
+                case "Dommrath":
+                    const domm = parseInt(document.getElementById('domm'));
+                    const rhyn = parseInt(document.getElementById('rhyn').value);
+                    const kado = parseInt(document.getElementById('kado').value);
+                    const croz = parseInt(document.getElementById('croz').value);
+                    const hiddyn = parseInt(document.getElementById('hiddyn').value);
+                    switch (to_calendar) {
+                        case "Terra":
+                            converted_date = domm_terra(domm, rhyn, kado, croz, hiddyn);
+                            break;
+                        default:
+                            alert('Konvertierung nicht verfügbar.');
+                            break;
+                    }
+                    break;
+                case "Thadrin":
+                    const thadrin = parseInt(document.getElementById('thadrin').value);
+                    const burdrin = parseInt(document.getElementById('burdrin').value);
+                    const sefrin = parseInt(document.getElementById('sefrin').value);
+                    const adrin = parseInt(document.getElementById('adrin').value);
+                    const ofrin = parseInt(document.getElementById('ofrin').value);
+                    switch (to_calendar) {
+                        case "Terra":
+                            converted_date = terra_thadrin(thadrin, burdrin, sefrin, adrin, ofrin);
+                            break;
+                        default:
+                            alert('Konvertierung nicht verfügbar.');
+                            break;
+                    }
+                    break;
+            }
+
+            document.getElementById("converted-date").innerHTML = converted_date;
+
+        }
+    </script>
+</body>
+
+</html>
