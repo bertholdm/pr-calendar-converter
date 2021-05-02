@@ -35,10 +35,10 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     //   AUSGABEWERTE,
 
     /*  double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
-                      double precision  s3,feb,rest,zeit,time,dif,nega,mem
-                      double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
-                      integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
-                  */
+                        double precision  s3,feb,rest,zeit,time,dif,nega,mem
+                        double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
+                        integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
+                    */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -57,11 +57,11 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
 
     /*
-                    Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
-                    V 0.9 beta (28.12.2002 by Christian Dalhoff)
-                    Achtung Fehler in Schaltjahren im negativen dha-Bereich
-                    Konvertierung nach JavaScript 2021 by bertholdm
-                */
+                      Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
+                      V 0.9 beta (28.12.2002 by Christian Dalhoff)
+                      Achtung Fehler in Schaltjahren im negativen dha-Bereich
+                      Konvertierung nach JavaScript 2021 by bertholdm
+                  */
 
     //  'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)'
     if (typ != Math.floor(typ) || typ >= 2 || typ < 0) {
@@ -425,14 +425,14 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
                 tor = 12;
                 co1 = Math.floor((mem - 2.592e7 - ty * t) / c1);
                 co2 = Math.floor((mem - 2.592e7 - ty * t - c1 * co1) / c2);
-                co3 = (mem - 2.592 - ty * t - c1 * co1 - c2 * co2) / c3;
+                co3 = (mem - 2.592e7 - ty * t - c1 * co1 - c2 * co2) / c3;
                 ty = ty - 33;
             }
             if (ty > 64) {
                 tor = 13;
                 co1 = Math.floor((mem - 2.592e7 - ty * t) / c1);
                 co2 = Math.floor((mem - 2.592e7 - ty * t - c1 * co1) / c2);
-                co3 = (mem - 2.592 - ty * t - c1 * co1 - c2 * co2) / c3;
+                co3 = (mem - 2.592e7 - ty * t - c1 * co1 - c2 * co2) / c3;
                 ty = ty - 65;
             }
         }
@@ -662,14 +662,14 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
                 tor = 12;
                 co1 = Math.floor((nega - 2.592e7 - ty * t) / c1);
                 co2 = Math.floor((nega - 2.592e7 - ty * t - c1 * co1) / c2);
-                co3 = (nega - 2.592 - ty * t - c1 * co1 - c2 * co2) / c3;
+                co3 = (nega - 2.592e7 - ty * t - c1 * co1 - c2 * co2) / c3;
                 ty = ty - 33;
             }
             if (ty > 64) {
                 tor = 13;
                 co1 = Math.floor((nega - 2.592e7 - ty * t) / c1);
                 co2 = Math.floor((nega - 2.592e7 - ty * t - c1 * co1) / c2);
-                co3 = (nega - 2.592 - ty * t - c1 * co1 - c2 * co2) / c3;
+                co3 = (nega - 2.592e7 - ty * t - c1 * co1 - c2 * co2) / c3;
                 ty = ty - 65;
             }
         }
@@ -765,8 +765,8 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
         }
     }
     // Ausgabe der Ergebnisse
-    var torname = "";
-    var tamarcomment = "";
+    let torname = "";
+    let tamarcomment = "";
     switch (tor) {
         case 1:
             torname = "des Jannhis";
