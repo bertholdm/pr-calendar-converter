@@ -40,15 +40,15 @@ function daark_terra(daark, periode, prago, tonta) {
     //	 sec:	   Eingabe Sekunde
 
     /*
-                          double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
-                          double precision zeit,time,dif
-                          double precision ark1,ark1a,ark1b,ark2,ark1c,ark2a,ark2b,ark2c
-                          double precision per,per_a,per_b,per_c,peri,prago,pra,pra_a
-                          double precision pra_b,pra_c,ton,ton_a,ton_b,ton_c,tonta
-                          double precision daark,vre1,vre2,vre3,nega
-                          integer          atz,ngz,mona,monat,tag,day,std,min,rueck,typ
-                          integer          periode
-                      */
+                              double precision j0, j1, j2, j3, mon, t, m, sec, s, s0, s1, s2, s3, feb, rest
+                              double precision zeit,time,dif
+                              double precision ark1,ark1a,ark1b,ark2,ark1c,ark2a,ark2b,ark2c
+                              double precision per,per_a,per_b,per_c,peri,prago,pra,pra_a
+                              double precision pra_b,pra_c,ton,ton_a,ton_b,ton_c,tonta
+                              double precision daark,vre1,vre2,vre3,nega
+                              integer          atz,ngz,mona,monat,tag,day,std,min,rueck,typ
+                              integer          periode
+                          */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -80,10 +80,10 @@ function daark_terra(daark, periode, prago, tonta) {
     const dif = 6.44647557545e11;
 
     /*
-Programm zur Umrechnung von Daten da Ark nach ATZ/NGZ"
-V 4.0 beta (30.09.2002 by Christian Dalhoff)
-Konvertierung nach JavaScript 2021 by bertholdm
-*/
+            Programm zur Umrechnung von Daten da Ark nach ATZ/NGZ
+            V 4.0 beta (30.09.2002 by Christian Dalhoff)
+            Konvertierung nach JavaScript 2021 by bertholdm
+        */
     let vre1 = 0;
     let vre2 = 0;
     let vre3 = 0;
@@ -426,14 +426,14 @@ Konvertierung nach JavaScript 2021 by bertholdm
             mona = zeit - s2 * (3 * j3 + t) - (s3 + 6) * j3;
             mon = j3 - mona;
             s3 = s3 - 1;
-            // Beruecksichtigt; dass -45 ATZ kein Schaltjahr war;
+            // Beruecksichtigt; dass -45 ATZ kein Schaltjahr war
             if (atz == 45) {
                 s3 = 0;
             }
         }
         // Bis -45 ATZ;
         if (zeit < -1.4201568e9) {
-            // -t gleicht die Fehler zu Beginn der julianischen Schaltung aus//;
+            // -t gleicht die Fehler zu Beginn der julianischen Schaltung aus
             zeit = Math.abs(zeit) - t;
             s0 = Math.floor(zeit / j0);
             s1 = Math.floor((zeit - s0 * j0) / j1);
@@ -443,7 +443,7 @@ Konvertierung nach JavaScript 2021 by bertholdm
             mona = zeit - s0 * j0 - s1 * j1 - s2 * j2 - s3 * j3;
             mon = j3 - mona;
             s3 = s3 + 1;
-            // Korrektur fuer nicht durch 4 teilbare Jahrhunderte;
+            // Korrektur fuer nicht durch 4 teilbare Jahrhunderte
             if ((atz + 3) % 100 == 0) {
                 s3 = 0;
             }

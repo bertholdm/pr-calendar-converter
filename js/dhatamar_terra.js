@@ -1,8 +1,8 @@
 function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     //	 ZEITEINHEITEN IN SEKUNDEN
-    //   j0:  3200*365.2421875 Tage in Sekunden
-    //	 j1:	400*356,2425 Tage in Sekunden
-    //	 j2:	4*365,25 Tage in Sekunden
+    //   j0:  3200*365.2421875 Tage in Sekunden (durchschnittliches Jahr)
+    //	 j1:	400*356,2425 Tage in Sekunden (gregorianisch)
+    //	 j2:	4*365,25 Tage in Sekunden (julianisch)
     //	 j3:	365 Tage in Sekunden
     //	 mon:	Dauer der Vormonate in Sekunden
     //	 t:	ein Tag in Sekunden
@@ -34,17 +34,16 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     //        AUSGABEWERTE
 
     /*
-              double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
-              double precision  s3,feb,rest,zeit,time,dif,nega,mem,dha
-              double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
-              integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
-              integer           torlon
-          */
+                                                                                                          double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
+                                                                                                          double precision  s3,feb,rest,zeit,time,dif,nega,mem,dha
+                                                                                                          double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
+                                                                                                          integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
+                                                                                                          integer           torlon
+                                                                                                      */
 
     let mon;
     let s0, s1, s2, s3;
     let tor;
-    let time = 0; // time ist in der Fortran-Quelle ohne Zuweisung!
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
     const j2 = 1.262304e6;
@@ -57,28 +56,35 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     const c1 = 7.2e3;
     const c2 = 6.0e2;
     const c3 = 5.0e1;
+    // "Das Jahr 56.400 v. Chr. (0 dha-Tamar) ist der Beginn der lemurischen Zeitrechnung.""
+    // (https://www.perrypedia.de/wiki/Lemurer)
+    // 1,77981057e12 = 56400 Jahre * 365,2421875 Tage * 24 Stunden * 60 Minuten * 60 Sekunden
     const dif = 1.779780211e12;
+    let time; // time ist in der Fortran-Quelle ohne Zuweisung!
+    // Möglicherweise ist in einigen Zuweisungen "zeit" durch "time zu ersetzen.
 
     /* 
-            Programm zur Umrechnung von dha-Tamar nach ATZ/NGZ'
-            V 1.0 beta (28.12.2002 by Christian Dalhoff)'
-            Konvertierung nach JavaScript 2021 by bertholdm
+                          Programm zur Umrechnung von dha-Tamar nach ATZ/NGZ'
+                          V 1.0 beta (28.12.2002 by Christian Dalhoff)'
+                          Konvertierung nach JavaScript 2021 by bertholdm
+                          */
 
-            Zuordnung der Torlon-Nummern:
-            Jannhis  =  1
-            Keub     =  2
-            Nazhach  =  3
-            Uhs      =  4
-            Fohlad   =  5
-            Sikkhla  =  6
-            Adomet   =  7
-            Aizhidos =  8
-            Illhach  =  9
-            Thiodege = 10
-            Ezrah    = 11
-            Eizhel   = 12
-            Berlen`ty der Vrehetatou = 13
-        */
+    /*
+                          Zuordnung der Torlon-Nummern:
+                          Jannhis  =  1
+                          Keub     =  2
+                          Nazhach  =  3
+                          Uhs      =  4
+                          Fohlad   =  5
+                          Sikkhla  =  6
+                          Adomet   =  7
+                          Aizhidos =  8
+                          Illhach  =  9
+                          Thiodege = 10
+                          Ezrah    = 11
+                          Eizhel   = 12
+                          Berlen`ty der Vrehetatou = 13
+                        */
 
     // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
 
@@ -212,7 +218,8 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
         // Berechnet die Anzahl der kompletten Jahre seit dem letzten Schaltjahr
         s2 = dha - s0 * 5450 - s1 * 50 - 1;
         // Berechnet die Anzahl der Sekunden seit 1 dha-Tamar.
-        zeit =
+        // zeit =
+        time =
             s0 * v0 +
             s1 * v1 +
             s2 * j3 +
@@ -225,8 +232,9 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
 
     // Fuehrt o.g. Operationen auf Jahreszahlen dha-Tamar kleiner 1 aus.
     if (dha == -1) {
-        // Berechnet die Anzahl der Sekunden bis 1 ATZ.;
-        zeit = -(j3 + 24 * t - tor - (ty - 1) * t - co1 * c1 - co2 * c2 - co3 * c3);
+        // Berechnet die Anzahl der Sekunden bis 1 ATZ.
+        // zeit = -(
+        time = -(j3 + 24 * t - tor - (ty - 1) * t - co1 * c1 - co2 * c2 - co3 * c3);
     }
     if (dha < -1) {
         dha = Math.abs(dha);
@@ -235,7 +243,8 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
         s1 = Math.floor((rest - 2) / 50);
         s2 = dha - 5450 * s0 - s1 * 50 - 1;
         // Berechnet die Anzahl der Sekunden bis 1 ATZ.
-        zeit = -(
+        // zeit = -(
+        time = -(
             s0 * v0 +
             s1 * v1 +
             s2 * j3 +
@@ -264,7 +273,9 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
     rest = 0;
 
     // Rechnet um in Sekunden seit 1 atz
-    // time ist in der Fortran-Quelle undefiniert! Hier mit 0 initialisiert.
+    // time ist in der Fortran-Quelle undefiniert!
+    // Analog zu daark_terra und domm_terra wurde in den obenstehenden Anweisungen
+    // "zeit" durch "time" ersetzt
     zeit = time - dif;
 
     // Kleine Vorsichtsmassnahme
@@ -299,7 +310,7 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
         s3 = Math.floor((zeit - s0 * j0 - s1 * j1 - s2 * j2) / j3);
         atz = s0 * 3200 + s1 * 400 + s2 * 4 + s3 + 1;
         mon = zeit - s0 * j0 - s1 * j1 - s2 * j2 - s3 * j3;
-        // Korrektur fuer nicht durch 4 teilbare Jahrhunderte;
+        // Korrektur fuer nicht durch 4 teilbare Jahrhunderte
         if (atz % 100 == 0) {
             s3 = 0;
         }
@@ -418,14 +429,14 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
             mona = zeit - s2 * (3 * j3 + t) - (s3 + 6) * j3;
             mon = j3 - mona;
             s3 = s3 - 1;
-            // Beruecksichtigt, dass -45 ATZ kein Schaltjahr war;
+            // Beruecksichtigt, dass -45 ATZ kein Schaltjahr war
             if (atz == 45) {
                 s3 = 0;
             }
         }
         // Bis -45 ATZ;
         if (zeit < -1.4201568e9) {
-            // -t gleicht die Fehler zu Beginn der julianischen Schaltung aus//;
+            // -t gleicht die Fehler zu Beginn der julianischen Schaltung aus
             zeit = Math.abs(zeit) - t;
             s0 = Math.floor(zeit / j0);
             s1 = Math.floor((zeit - s0 * j0) / j1);
@@ -435,7 +446,7 @@ function dhatamar_terra(dha, torlon, ty, co1, co2, co3) {
             mona = zeit - s0 * j0 - s1 * j1 - s2 * j2 - s3 * j3;
             mon = j3 - mona;
             s3 = s3 + 1;
-            // Korrektur fuer nicht durch 4 teilbare Jahrhunderte;
+            // Korrektur fuer nicht durch 4 teilbare Jahrhunderte
             if ((atz + 3) % 100 == 0) {
                 s3 = 0;
             }
