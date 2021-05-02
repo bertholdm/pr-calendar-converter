@@ -35,10 +35,10 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     //   AUSGABEWERTE,
 
     /*  double precision  j0,j1,j2,j3,mon,t,tag,s,std,m,min,sec,s0,s1,s2
-                        double precision  s3,feb,rest,zeit,time,dif,nega,mem
-                        double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
-                        integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
-                    */
+                            double precision  s3,feb,rest,zeit,time,dif,nega,mem
+                            double precision	v0,v1,vr0,vr1,vr2,co1,co2,co3,c1,c2,c3,ty
+                            integer           mona,monat,day,atz,ngz,ber,tor,rueck,typ,tamar
+                        */
 
     const j0 = 1.0098216e11;
     const j1 = 1.26227808e10;
@@ -57,11 +57,11 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     // Nimmt die Eingabewerte an und ueberprueft, ob sie zulaessig sind.
 
     /*
-                      Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
-                      V 0.9 beta (28.12.2002 by Christian Dalhoff)
-                      Achtung Fehler in Schaltjahren im negativen dha-Bereich
-                      Konvertierung nach JavaScript 2021 by bertholdm
-                  */
+                          Programm zur Umrechnung von ATZ/NGZ nach dha-Tamar
+                          V 0.9 beta (28.12.2002 by Christian Dalhoff)
+                          Achtung Fehler in Schaltjahren im negativen dha-Bereich
+                          Konvertierung nach JavaScript 2021 by bertholdm
+                      */
 
     //  'Waehlen sie das Eingabeformat (ATZ = 0, NGZ = 1)'
     if (typ != Math.floor(typ) || typ >= 2 || typ < 0) {
@@ -810,7 +810,8 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
     }
     if (tamar > 6500) {
         tamarcomment =
-            "Das Lemurische Tammanium gilt ab 6417 dha-Tamar als Untergegangen, Lemuria ab 6500 als zerstoert.";
+            "(Das Lemurische Tammanium gilt ab 6417 dha-Tamar als Untergegangen, \
+                Lemuria ab 6500 als zerstoert.)";
     }
     return (
         (ty + 1).toString() +
@@ -818,15 +819,13 @@ function terra_dhatamar(typ, jahr, mona, tag, std, min, sec) {
         torname +
         " " +
         tamar +
-        " dha-tamar " +
+        " dha-Tamar " +
         co1 +
-        " coberlen`ty " +
+        " Coberlen`ty " +
         co2 +
-        " cobol`ty " +
+        " Cobol`ty " +
         co3 +
-        " corgon`ty" +
-        " (" +
-        tamarcomment +
-        ".)"
+        " Corgon`ty " +
+        tamarcomment
     );
 }
