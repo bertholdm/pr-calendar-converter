@@ -9,7 +9,7 @@
     <script type="text/javascript" src="daark_terra.js" defer></script>
     <script type="text/javascript" src="domm_terra.js" defer></script>
     <script type="text/javascript" src="thadrin_terra.js" defer></script>
-    <!-- link rel="stylesheet" href="pr_date_conversion.css" -->
+    <link type="text/css" rel="stylesheet" href="pr_date_conversion.css">
 </head>
 
 <body>
@@ -343,7 +343,7 @@
                     const ofrin = parseInt(document.getElementById('ofrin').value);
                     switch (to_calendar) {
                         case "Terra":
-                            converted_date = terra_thadrin(thadrin, burdrin, sefrin, adrin, ofrin);
+                            converted_date = thadrin_terra(thadrin, burdrin, sefrin, adrin, ofrin);
                             break;
                         default:
                             alert('Konvertierung nicht verfügbar.');
