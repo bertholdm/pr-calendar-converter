@@ -1,0 +1,1 @@
+This folder contains Windows 64bit executables, compiled with the gfortran compiler (https://gcc.gnu.org/wiki/GFortran) Version 6.3.0 (2017-05-30) from the Fortran-sources of Christian Dalhoff (http://www.joelh.de/download/zeitumrechner.zip).
